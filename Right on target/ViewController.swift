@@ -8,29 +8,27 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var game: Game!
 
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var numberLabel: UILabel!
     
-    lazy var secondViewController: SecondViewController = getSecondViewController()
-    
-    var number = 0
-    var round = 1
-    var points = 0
+    let rounds = 5
     
     override func loadView() {
         super.loadView()
         print("load view")
     }
     
-
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        number = Int.random(in: 1...50)
-        numberLabel.text = String(number)
-        round = 1
+        game = Game(startValue: 0, endValue: 50, rounds: rounds)
+        
+        updateLabelWithSecret(number: game.currentSecretValue)
         
         print("view did load")
     }
@@ -55,48 +53,38 @@ class ViewController: UIViewController {
         print("view did disapear")
     }
     
+    
+    // MARK: - interaction View - Model
     @IBAction func buttonPressed(_ sender: UIButton) {
         
-        
-            let numSlider = Int(slider.value.rounded())
+        let numSlider = Int(slider.value)
             
-//            switch numSlider {
-//            case _ where numSlider > number: points += 50 - numSlider + number
-//            case _ where numSlider < number: points += 50 + numSlider - number
-//            default: points += 50
-//            }
-            if numSlider > number {
-                points += 50 - numSlider + number
-            } else if numSlider < number {
-                points += 50 - number + numSlider
-            } else {
-                points += 50
-            }
-            if round == 5 {
-                
-                let alert = UIAlertController(title: "Game over.", message: "You have earned \(points) of 250 points.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Start over.", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                round = 1
-                points = 0
-            } else {
-                round += 1
-            }
+        game.calculateScore(with: numSlider)
             
-            number = Int.random(in: 1...50)
-            numberLabel.text = String(number)
-        
+        if game.isGameEnded {
+            showAlertWith(score: game.score)
+            
+            game.restartGame()
+        } else {
+            game.startNewRound()
+        }
+        updateLabelWithSecret(number: game.currentSecretValue)
+    }
+    
+    //MARK: - update View
+    
+    private func updateLabelWithSecret(number: Int) {
+        let newText = String(number)
+        numberLabel.text = newText
+    }
+    
+    private func showAlertWith(score: Int) {
+        let alert = UIAlertController(
+            title: "Game over.",
+            message: "You have earned \(game.score) of 250 points.",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Start over.", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
-// functions
-extension ViewController {
-        
-    private func getSecondViewController() -> SecondViewController {
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(withIdentifier: "SecondViewController")
-        
-        return viewController as! SecondViewController
-    }
-}
