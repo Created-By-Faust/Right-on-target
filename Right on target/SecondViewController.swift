@@ -40,10 +40,7 @@ class SecondViewController: UIViewController {
         print("foo - viewDidDisappear SecondViewController")
     }
 
-    @IBAction func hideCurrentScreen(_ sender: UIButton) {
-        
-        self.dismiss(animated: true)
-    }
+   
     /*
     // MARK: - Navigation
 

@@ -91,12 +91,7 @@ class ViewController: UIViewController {
 
 // functions
 extension ViewController {
-    
-    @IBAction func showNextScreen(_ sender: UIButton) {
-    
-        self.present(secondViewController, animated: true)
-    }
-    
+        
     private func getSecondViewController() -> SecondViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

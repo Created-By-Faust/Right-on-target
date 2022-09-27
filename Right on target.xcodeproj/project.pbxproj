@@ -61,11 +61,11 @@
 				6D08E6FD28D07DBE00B6F1A9 /* AppDelegate.swift */,
 				6D08E6FF28D07DBE00B6F1A9 /* SceneDelegate.swift */,
 				6D08E70128D07DBE00B6F1A9 /* ViewController.swift */,
+				6DC4BD5128E2FE7E006D106A /* SecondViewController.swift */,
 				6D08E70328D07DBE00B6F1A9 /* Main.storyboard */,
 				6D08E70628D07DC500B6F1A9 /* Assets.xcassets */,
 				6D08E70828D07DC500B6F1A9 /* LaunchScreen.storyboard */,
 				6D08E70B28D07DC500B6F1A9 /* Info.plist */,
-				6DC4BD5128E2FE7E006D106A /* SecondViewController.swift */,
 			);
 			path = "Right on target";
 			sourceTree = "<group>";
