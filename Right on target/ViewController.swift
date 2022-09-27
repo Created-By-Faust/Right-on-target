@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Right on target
 //
-//  Created by Дмитрий Емелин on 13.09.2022.
+//  Created by Faust on 13.09.2022.
 //
 
 import UIKit
@@ -12,22 +12,52 @@ class ViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var numberLabel: UILabel!
     
+    lazy var secondViewController: SecondViewController = getSecondViewController()
+    
     var number = 0
-    var round = 0
+    var round = 1
     var points = 0
+    
+    override func loadView() {
+        super.loadView()
+        print("load view")
+    }
+    
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        number = Int.random(in: 1...50)
+        numberLabel.text = String(number)
+        round = 1
+        
+        print("view did load")
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("view will appear")
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("view did appear")
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will disappear")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("view did disapear")
+    }
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
         
-        if round == 0 {
-            number = Int.random(in: 1...50)
-            numberLabel.text = String(number)
-            round = 1
-        } else {
+        
             let numSlider = Int(slider.value.rounded())
             
 //            switch numSlider {
@@ -55,10 +85,23 @@ class ViewController: UIViewController {
             
             number = Int.random(in: 1...50)
             numberLabel.text = String(number)
-        }
+        
     }
-    
-    
-    
 }
 
+// functions
+extension ViewController {
+    
+    @IBAction func showNextScreen(_ sender: UIButton) {
+    
+        self.present(secondViewController, animated: true)
+    }
+    
+    private func getSecondViewController() -> SecondViewController {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: "SecondViewController")
+        
+        return viewController as! SecondViewController
+    }
+}

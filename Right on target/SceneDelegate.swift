@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Right on target
 //
-//  Created by Дмитрий Емелин on 13.09.2022.
+//  Created by Faust on 13.09.2022.
 //
 
 import UIKit
